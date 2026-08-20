@@ -14,7 +14,7 @@
 - [x] Build functional Campaign Generator with coordinated native outputs across formats
 - [x] Add persistent generation history and saved-content experiences scoped to authenticated users
 - [x] Build profile and settings pages including appearance preferences
-- [ ] Wire authentication-aware navigation and protected application routes
+- [x] Wire authentication-aware navigation and protected application routes
 - [x] Add server schema, database helpers, and tRPC procedures for generation records and profile data
 - [x] Integrate built-in AI/image generation capabilities where supported by project scaffolding
 - [x] Add responsive behavior for desktop, tablet, and mobile breakpoints
