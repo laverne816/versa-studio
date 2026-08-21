@@ -22,3 +22,8 @@
 - [x] Add Vitest coverage for new server procedures and core behavior
 - [x] Run typecheck, tests, and visual screenshot verification
 - [x] Save the final project checkpoint for delivery
+
+- [x] Update image generation prompts to preserve rich natural colour instead of monochrome output
+- [x] Generate and persist a second colour variation for each image request
+- [x] Display both generated colour variations in the image generator result grid
+- [x] Test and checkpoint the colour-generation update

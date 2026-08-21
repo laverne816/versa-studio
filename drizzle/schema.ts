@@ -20,6 +20,7 @@ export const generations = mysqlTable("generations", {
   prompt: text("prompt").notNull(),
   content: text("content"),
   imageUrl: text("imageUrl"),
+  variationUrl: text("variationUrl"),
   isSaved: int("isSaved").default(0).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

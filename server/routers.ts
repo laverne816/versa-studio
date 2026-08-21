@@ -21,9 +21,12 @@ export const appRouter = router({
     create: protectedProcedure.input(z.object({ kind: kindSchema, idea: z.string().min(1), format: z.string().optional(), tone: z.string().optional(), language: z.string().optional() })).mutation(async ({ ctx, input }) => {
       const prompt = `Create a ${input.kind} for this idea: ${input.idea}. Format: ${input.format ?? "editorial"}. Tone: ${input.tone ?? "considered"}. Language if relevant: ${input.language ?? "n/a"}.`;
       if (input.kind === "image") {
-        const result = await generateImage({ prompt: `Premium monochrome editorial beauty campaign image. ${input.idea}. Style: ${input.tone ?? "Editorial"}. Fashion magazine quality, diverse young adult subject, natural light, no text.` });
-        await createGeneration({ userId: ctx.user.id, kind: input.kind, title: input.idea.slice(0, 255), prompt, imageUrl: result.url, content: null, isSaved: 0 });
-        return { kind: input.kind, content: "Editorial image generated.", imageUrl: result.url };
+        const [result, variation] = await Promise.all([
+          generateImage({ prompt: `Rich natural colour editorial beauty campaign image. ${input.idea}. Style: ${input.tone ?? "Editorial"}. Fashion magazine quality, diverse young adult subject, luminous skin, nuanced colour palette, natural light, no text.` }),
+          generateImage({ prompt: `Second colour variation of a premium beauty editorial. ${input.idea}. Style: ${input.tone ?? "Editorial"}. Change the composition and styling while keeping the same creative direction, rich natural colour, fashion magazine quality, no text.` }),
+        ]);
+        await createGeneration({ userId: ctx.user.id, kind: input.kind, title: input.idea.slice(0, 255), prompt, imageUrl: result.url, variationUrl: variation.url, content: null, isSaved: 0 });
+        return { kind: input.kind, content: "Two colour editorial images generated.", imageUrl: result.url, variationUrl: variation.url };
       }
       const response = await invokeLLM({ messages: [
         { role: "system", content: "You are Versa, an editorial creative director. Return concise, high-quality output with a distinct point of view. Adapt output natively to the requested format. Never mention being an AI." },
